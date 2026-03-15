@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>North Drone Analytics — För fastighetsutvecklaren</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<script>
+function switchTab(id, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  if (btn) btn.classList.add('active');
+  if (window.lucide) lucide.createIcons();
+}
+function toggleMenu() {
+  document.getElementById('mobileMenu').classList.toggle('open');
+}
+function closeMenu() {
+  document.getElementById('mobileMenu').classList.remove('open');
+}
+</script>
+<style>
+:root {
+  --navy:          #08152A;
+  --navy-mid:      #0F2240;
+  --blue:          #1D55D4;
+  --blue-light:    #4B8AF4;
+  --blue-pale:     #D6E6FF;
+  --blue-border:   #A8C4F8;
+  --teal:          #0E9F8E;
+  --teal-pale:     #C4EAE6;
+  --teal-border:   #7DCDC6;
+  --green:         #18A556;
+  --green-pale:    #C4EDD4;
+  --green-border:  #7DCCA0;
+  --amber:         #D97706;
+  --amber-pale:    #FDEAB8;
+  --amber-border:  #F6CC6A;
+  --purple:        #7038E8;
+  --purple-pale:   #DDD4FA;
+  --purple-border: #C0A8F4;
+  --slate:         #1A2B42;
+  --muted:         #667388;
+  --border:        #E4EAF2;
+  --off-white:     #F7F9FC;
+  --white:         #FFFFFF;
+  --header-text:   #8FA8CC;
+  --page-bg:       #D8DFE8;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: "DM Sans", sans-serif;
+  color: var(--slate);
+  background: var(--page-bg);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* ── TYPOGRAPHY ── */
+h1 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; color: var(--white); line-height: 1.1; }
+h1 span { color: var(--blue-light); }
+h2 { font-size: clamp(1.5rem, 2.5vw, 2rem); font-weight: 700; color: var(--navy); }
+h3 { font-size: clamp(1rem, 1.5vw, 1.25rem); font-weight: 600; }
+p { font-size: 1rem; line-height: 1.65; color: var(--slate); }
+.text-muted { color: var(--muted); font-size: 0.875rem; }
+.mono { font-family: "DM Mono", monospace; }
+
+/* ── LAYOUT ── */
+.container { max-width: 1140px; margin: 0 auto; padding: 0 24px; }
+section { padding: 80px 0; }
+
+/* ── NAVIGATION ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(8,21,42,0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(75,138,244,0.15);
+  transition: background 0.3s;
+}
+.nav-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  height: 68px; max-width: 1140px; margin: 0 auto; padding: 0 24px;
+}
+.nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.nav-logo svg { width: 36px; height: 36px; }
+.nav-wordmark { display: flex; align-items: baseline; gap: 0; font-size: 1rem; font-weight: 700; letter-spacing: -0.01em; }
+.nav-wordmark .n { color: var(--white); }
+.nav-wordmark .a { color: var(--blue-light); }
+.nav-links { display: flex; align-items: center; gap: 32px; }
+.nav-links a {
+  color: var(--header-text); font-size: 0.9rem; font-weight: 500;
+  text-decoration: none; transition: color 0.15s;
+}
+.nav-links a:hover { color: var(--white); }
+.btn-nav {
+  background: var(--blue); color: #fff; border: none;
+  border-radius: 999px; padding: 9px 20px;
+  font-family: "DM Sans", sans-serif; font-weight: 700; font-size: 0.875rem;
+  cursor: pointer; text-decoration: none;
+  transition: background 0.15s, box-shadow 0.15s, transform 0.15s;
+}
+.btn-nav:hover { background: var(--blue-light); box-shadow: 0 4px 12px rgba(29,85,212,0.35); }
+.btn-nav:active { transform: scale(0.97); }
+.hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+.hamburger span { width: 22px; height: 2px; background: var(--white); border-radius: 2px; transition: all 0.3s; }
+
+/* ── HERO ── */
+.hero {
+  background: var(--navy);
+  padding: 140px 0 80px;
+  position: relative; overflow: hidden;
+  min-height: 100vh;
+  display: flex; align-items: center;
+}
+.hero::before {
+  content: "";
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 80% 60% at 70% 50%, rgba(29,85,212,0.18) 0%, transparent 70%),
+              radial-gradient(ellipse 40% 40% at 20% 80%, rgba(14,159,142,0.08) 0%, transparent 60%);
+  pointer-events: none;
+}
+.hero-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 60px; align-items: center; position: relative; z-index: 1;
+}
+.hero-kicker {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(75,138,244,0.15); border: 1px solid rgba(75,138,244,0.3);
+  border-radius: 999px; padding: 6px 14px;
+  font-size: 0.75rem; font-weight: 600; color: var(--blue-light);
+  letter-spacing: 0.08em; text-transform: uppercase;
+  margin-bottom: 24px;
+}
+.hero-kicker::before {
+  content: ""; width: 6px; height: 6px; border-radius: 50%;
+  background: var(--blue-light); flex-shrink: 0;
+}
+.hero h1 { margin-bottom: 24px; }
+.hero-lead {
+  font-size: 1.1rem; color: rgba(255,255,255,0.65); line-height: 1.7;
+  margin-bottom: 36px; max-width: 480px;
+}
+.hero-cta { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.btn-primary {
+  background: var(--blue); color: #fff; border: none;
+  border-radius: 999px; padding: 14px 28px;
+  font-family: "DM Sans", sans-serif; font-weight: 700; font-size: 0.9375rem;
+  cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+  transition: background 0.15s, box-shadow 0.15s, transform 0.15s;
+}
+.btn-primary:hover { background: var(--blue-light); box-shadow: 0 4px 16px rgba(29,85,212,0.4); }
+.btn-primary:active { transform: scale(0.97); }
+.btn-ghost {
+  background: transparent; color: #fff;
+  border: 1.5px solid rgba(255,255,255,0.45);
+  border-radius: 999px; padding: 14px 28px;
+  font-family: "DM Sans", sans-serif; font-weight: 600; font-size: 0.9375rem;
+  cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+  transition: background 0.15s, border-color 0.15s, color 0.15s, transform 0.15s;
+}
+.btn-ghost:hover { background: #fff; color: var(--navy); border-color: #fff; }
+.btn-ghost:active { transform: scale(0.97); }
+.hero-badges {
+  margin-top: 48px; display: flex; align-items: center; gap: 24px; flex-wrap: wrap;
+}
+.hero-badge {
+  display: flex; align-items: center; gap: 8px;
+  color: var(--header-text); font-size: 0.8125rem; font-weight: 500;
+}
+.hero-badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--teal); }
+.hero-visual {
+  position: relative; display: flex; flex-direction: column; gap: 16px;
+}
+.hero-card-main {
+  background: var(--navy-mid);
+  border: 1px solid rgba(75,138,244,0.2);
+  border-radius: 20px; padding: 28px;
+  position: relative; overflow: hidden;
+}
+.hero-card-main::after {
+  content: ""; position: absolute; top: 0; right: 0;
+  width: 200px; height: 200px;
+  background: radial-gradient(circle, rgba(29,85,212,0.2) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-card-label {
+  font-size: 0.75rem; font-weight: 600; color: var(--blue-light);
+  letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 16px;
+  display: flex; align-items: center; gap: 6px;
+}
+.hero-card-label::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--blue-light); }
+.sensor-list { display: flex; flex-direction: column; gap: 10px; }
+.sensor-item {
+  display: flex; align-items: center; gap: 12px;
+  background: rgba(255,255,255,0.04); border-radius: 10px; padding: 12px 14px;
+  border: 1px solid rgba(255,255,255,0.07);
+}
+.sensor-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.sensor-name { color: var(--white); font-size: 0.875rem; font-weight: 500; }
+.sensor-desc { color: var(--header-text); font-size: 0.75rem; margin-left: auto; }
+.hero-cards-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.hero-mini-card {
+  background: var(--navy-mid); border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px; padding: 18px;
+}
+.mini-card-icon {
+  width: 36px; height: 36px; border-radius: 9px;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 10px;
+}
+.mini-card-title { color: var(--white); font-size: 0.8125rem; font-weight: 600; margin-bottom: 2px; }
+.mini-card-sub { color: var(--header-text); font-size: 0.75rem; }
+
+/* ── ABOUT STRIP ── */
+.about-strip {
+  background: var(--white);
+  padding: 48px 0;
+  border-bottom: 1px solid var(--border);
+}
+.about-strip-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 32px; flex-wrap: wrap;
+}
+.about-strip-text h2 { font-size: 1.5rem; color: var(--navy); margin-bottom: 8px; }
+.about-strip-text h2 span { color: var(--blue); }
+.about-strip-text p { color: var(--muted); font-size: 0.9375rem; max-width: 540px; }
+.pill-group { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+.pill {
+  background: var(--blue-pale); color: var(--blue);
+  border: 1px solid var(--blue-border); border-radius: 999px;
+  padding: 5px 14px; font-size: 0.8rem; font-weight: 600;
+}
+
+/* ── SECTION KICKER ── */
+.section-kicker {
+  display: inline-block; font-size: 0.75rem; font-weight: 700;
+  color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.section-title { margin-bottom: 16px; }
+.section-lead { color: var(--muted); font-size: 1.0625rem; max-width: 560px; margin-bottom: 48px; }
+
+/* ── SERVICES SECTION ── */
+.services-section { background: var(--off-white); }
+.services-intro { display: flex; justify-content: space-between; align-items: flex-end; gap: 32px; margin-bottom: 48px; flex-wrap: wrap; }
+
+/* TABS */
+.target-tabs { display: flex; gap: 8px; margin-bottom: 40px; flex-wrap: wrap; }
+.tab-btn {
+  background: var(--white); border: 1.5px solid var(--border);
+  border-radius: 999px; padding: 9px 20px;
+  font-family: "DM Sans", sans-serif; font-size: 0.875rem; font-weight: 600; color: var(--muted);
+  cursor: pointer; transition: all 0.15s;
+}
+.tab-btn.active {
+  background: var(--navy); border-color: var(--navy); color: var(--white);
+}
+.tab-btn:hover:not(.active) { border-color: var(--navy); color: var(--navy); }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* SERVICE CARDS */
+.service-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+@media (max-width: 900px) { .service-grid { grid-template-columns: 1fr; } }
+.service-card {
+  background: var(--white); border-radius: 16px; padding: 32px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.service-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(8,21,42,0.1); }
+.service-card-icon {
+  width: 52px; height: 52px; border-radius: 13px;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 20px;
+}
+.service-card h3 { margin-bottom: 6px; font-size: 1.125rem; }
+.service-card-sub { font-size: 0.8125rem; color: var(--muted); margin-bottom: 20px; font-weight: 500; }
+.service-features { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.service-features li {
+  font-size: 0.9375rem; color: var(--slate); font-weight: 500;
+  display: flex; align-items: flex-start; gap: 8px; line-height: 1.5;
+}
+.service-features li::before {
+  content: "›"; font-weight: 700; font-size: 1rem; flex-shrink: 0; margin-top: 0px;
+}
+
+/* CARD COLORS — ingen border, bara färgad ikon och text */
+.card-va .service-card-icon { background: var(--teal-pale); }
+.card-va h3 { color: var(--teal); }
+.card-va .service-features li::before { color: var(--teal); }
+
+.card-gis .service-card-icon { background: var(--green-pale); }
+.card-gis h3 { color: var(--green); }
+.card-gis .service-features li::before { color: var(--green); }
+
+.card-fast .service-card-icon { background: var(--purple-pale); }
+.card-fast h3 { color: var(--purple); }
+.card-fast .service-features li::before { color: var(--purple); }
+
+.card-tak .service-card-icon { background: var(--teal-pale); }
+.card-tak h3 { color: var(--teal); }
+.card-tak .service-features li::before { color: var(--teal); }
+
+.card-sol .service-card-icon { background: var(--amber-pale); }
+.card-sol h3 { color: var(--amber); }
+.card-sol .service-features li::before { color: var(--amber); }
+
+.card-doc .service-card-icon { background: var(--purple-pale); }
+.card-doc h3 { color: var(--purple); }
+.card-doc .service-features li::before { color: var(--purple); }
+
+/* ── HOW WE WORK ── */
+.how-section { background: var(--navy); }
+.how-section h2 { color: var(--white); }
+.how-section .section-lead { color: var(--header-text); }
+.how-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-top: 48px; }
+@media (max-width: 900px) { .how-grid { grid-template-columns: 1fr 1fr; } }
+.how-card {
+  background: var(--navy-mid); border: 1px solid rgba(75,138,244,0.15);
+  border-radius: 16px; padding: 28px; position: relative;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.how-card:hover { border-color: rgba(75,138,244,0.4); transform: translateY(-4px); }
+.how-num {
+  font-size: 0.75rem; font-weight: 700; color: var(--blue-light);
+  letter-spacing: 0.1em; margin-bottom: 16px;
+}
+.how-icon-wrap {
+  width: 44px; height: 44px; border-radius: 11px;
+  background: rgba(29,85,212,0.15);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.25rem; margin-bottom: 16px;
+}
+.how-card h3 { color: var(--white); font-size: 1rem; margin-bottom: 8px; }
+.how-card p { color: var(--header-text); font-size: 0.875rem; line-height: 1.6; }
+
+/* ── CAMERAS SECTION ── */
+.cameras-section { background: var(--white); }
+.cam-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 48px; }
+@media (max-width: 768px) { .cam-grid { grid-template-columns: 1fr; } }
+.cam-card {
+  border-radius: 16px; padding: 28px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.cam-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(8,21,42,0.08); }
+.cam-icon-wrap {
+  width: 52px; height: 52px; border-radius: 13px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.5rem; margin-bottom: 20px;
+}
+.cam-card h3 { font-size: 1.0625rem; margin-bottom: 8px; }
+.cam-card p { font-size: 0.875rem; color: var(--muted); line-height: 1.6; }
+.cam-thermal { background: linear-gradient(135deg, #C4EAE6 0%, #e8f7f6 100%); }
+.cam-thermal .cam-icon-wrap { background: var(--teal); }
+.cam-thermal h3 { color: var(--teal); }
+.cam-multi { background: linear-gradient(135deg, #C4EDD4 0%, #e8f7ee 100%); }
+.cam-multi .cam-icon-wrap { background: var(--green); }
+.cam-multi h3 { color: var(--green); }
+.cam-rgb { background: linear-gradient(135deg, var(--blue-pale) 0%, #eef4ff 100%); }
+.cam-rgb .cam-icon-wrap { background: var(--blue); }
+.cam-rgb h3 { color: var(--blue); }
+
+/* ── DELIVERY SECTION ── */
+.delivery-section { background: var(--off-white); }
+.delivery-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 48px; }
+@media (max-width: 768px) { .delivery-grid { grid-template-columns: 1fr; } }
+.delivery-card {
+  background: var(--white); border-radius: 16px; padding: 28px;
+  border: 1.5px solid var(--border);
+}
+.delivery-card-title {
+  font-size: 0.9375rem; font-weight: 700; margin-bottom: 16px;
+  display: flex; align-items: center; gap: 10px;
+}
+.delivery-card-title .d-icon {
+  width: 32px; height: 32px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center; font-size: 0.875rem;
+}
+.d-blue .d-icon { background: var(--blue-pale); color: var(--blue); }
+.d-blue .delivery-card-title { color: var(--blue); }
+.d-purple .d-icon { background: var(--purple-pale); color: var(--purple); }
+.d-purple .delivery-card-title { color: var(--purple); }
+.delivery-features { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.delivery-features li {
+  font-size: 0.875rem; color: var(--slate);
+  display: flex; align-items: flex-start; gap: 8px;
+  padding-bottom: 8px; border-bottom: 1px solid var(--border);
+}
+.delivery-features li:last-child { border-bottom: none; padding-bottom: 0; }
+.delivery-features li::before { content: "›"; color: var(--muted); font-weight: 700; flex-shrink: 0; }
+
+/* ── USP SECTION ── */
+.usp-section { background: var(--navy); }
+.usp-section h2 { color: var(--white); }
+.usp-section .section-lead { color: var(--header-text); }
+.usp-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 48px; }
+@media (max-width: 768px) { .usp-grid { grid-template-columns: 1fr; } }
+.usp-card {
+  background: var(--navy-mid); border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 16px; padding: 24px; display: flex; gap: 18px;
+  transition: border-color 0.2s;
+}
+.usp-card:hover { border-color: rgba(75,138,244,0.3); }
+.usp-icon {
+  width: 44px; height: 44px; border-radius: 11px; flex-shrink: 0;
+  background: rgba(29,85,212,0.2);
+  display: flex; align-items: center; justify-content: center; font-size: 1.1rem;
+}
+.usp-card h3 { color: var(--white); font-size: 0.9375rem; margin-bottom: 6px; }
+.usp-card p { color: var(--header-text); font-size: 0.875rem; line-height: 1.6; }
+
+/* ── CTA SECTION ── */
+.cta-section { background: var(--white); }
+.cta-box {
+  background: var(--navy);
+  border-radius: 24px; padding: 64px 48px;
+  text-align: center; position: relative; overflow: hidden;
+}
+.cta-box::before {
+  content: ""; position: absolute; inset: 0;
+  background: radial-gradient(ellipse 60% 80% at 50% 100%, rgba(29,85,212,0.25) 0%, transparent 70%);
+  pointer-events: none;
+}
+.cta-box h2 { color: var(--white); margin-bottom: 16px; position: relative; z-index: 1; }
+.cta-box h2 span { color: var(--blue-light); }
+.cta-box p { color: rgba(255,255,255,0.65); font-size: 1.0625rem; margin-bottom: 36px; max-width: 480px; margin-left: auto; margin-right: auto; position: relative; z-index: 1; }
+.cta-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; position: relative; z-index: 1; }
+.cta-info { margin-top: 24px; color: rgba(255,255,255,0.4); font-size: 0.8125rem; position: relative; z-index: 1; }
+
+/* ── FOOTER ── */
+footer {
+  background: var(--navy); border-top: 1px solid rgba(255,255,255,0.07);
+  padding: 48px 0 32px;
+}
+.footer-inner {
+  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px;
+  margin-bottom: 40px;
+}
+@media (max-width: 768px) { .footer-inner { grid-template-columns: 1fr 1fr; } }
+.footer-brand p { color: var(--header-text); font-size: 0.875rem; line-height: 1.6; margin-top: 12px; max-width: 260px; }
+.footer-col h4 { color: var(--white); font-size: 0.875rem; font-weight: 600; margin-bottom: 14px; }
+.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.footer-col ul li a { color: var(--header-text); font-size: 0.875rem; text-decoration: none; transition: color 0.15s; }
+.footer-col ul li a:hover { color: var(--white); }
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.07); padding-top: 24px;
+  display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
+}
+.footer-bottom p { color: var(--header-text); font-size: 0.8125rem; }
+.footer-bottom a { color: var(--blue-light); text-decoration: none; }
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fade-up { animation: fadeUp 0.6s ease forwards; }
+.delay-1 { animation-delay: 0.1s; opacity: 0; }
+.delay-2 { animation-delay: 0.2s; opacity: 0; }
+.delay-3 { animation-delay: 0.3s; opacity: 0; }
+.delay-4 { animation-delay: 0.4s; opacity: 0; }
+.delay-5 { animation-delay: 0.5s; opacity: 0; }
+
+/* ── MOBILE ── */
+@media (max-width: 768px) {
+  .hero-grid { grid-template-columns: 1fr; }
+  .hero-visual { display: none; }
+  .how-grid { grid-template-columns: 1fr; }
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+  section { padding: 56px 0; }
+  .hero { padding: 120px 0 56px; min-height: auto; }
+}
+
+/* Mobile menu */
+.mobile-menu {
+  display: none; position: fixed; inset: 68px 0 0 0; z-index: 99;
+  background: var(--navy); padding: 24px;
+  flex-direction: column; gap: 4px;
+  border-top: 1px solid rgba(255,255,255,0.07);
+}
+.mobile-menu.open { display: flex; }
+.mobile-menu a {
+  color: var(--header-text); font-size: 1rem; font-weight: 500;
+  text-decoration: none; padding: 14px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  transition: color 0.15s;
+}
+.mobile-menu a:hover { color: var(--white); }
+.mobile-menu .btn-primary { margin-top: 12px; text-align: center; justify-content: center; }
+
+/* ── DRONE CARDS ── */
+.drone-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+}
+@media (max-width: 1024px) { .drone-grid { grid-template-columns: repeat(2,1fr); } }
+@media (max-width: 640px) { .drone-grid { grid-template-columns: 1fr; } }
+
+.drone-card {
+  background: var(--white); border-radius: 16px; overflow: hidden;
+  border: 1.5px solid var(--border);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.drone-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(8,21,42,0.1); }
+
+.drone-img-wrap {
+  position: relative; height: 180px; overflow: hidden;
+  background: linear-gradient(135deg, #e8f0fa 0%, #d0def5 100%);
+  display: flex; align-items: center; justify-content: center;
+}
+.drone-img-wrap img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 0.4s;
+}
+.drone-card:hover .drone-img-wrap img { transform: scale(1.04); }
+.drone-img-fallback {
+  display: flex; align-items: center; justify-content: center;
+  width: 100%; height: 100%;
+}
+.drone-badge {
+  position: absolute; top: 12px; right: 12px;
+  color: #fff; font-size: 0.7rem; font-weight: 700;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  padding: 4px 10px; border-radius: 999px;
+}
+.drone-body { padding: 20px; }
+.drone-name { font-size: 1rem; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
+.drone-sensor {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 0.775rem; color: var(--muted); margin-bottom: 10px; font-weight: 500;
+}
+.drone-desc { font-size: 0.85rem; color: var(--slate); line-height: 1.6; margin-bottom: 14px; }
+.drone-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.dtag {
+  background: var(--blue-pale); color: var(--blue);
+  font-size: 0.7rem; font-weight: 600;
+  padding: 3px 10px; border-radius: 999px;
+  border: 1px solid var(--blue-border);
+}
+.dtag-teal { background: var(--teal-pale); color: var(--teal); border-color: var(--teal-border); }
+.dtag-green { background: var(--green-pale); color: var(--green); border-color: var(--green-border); }
+.dtag-amber { background: var(--amber-pale); color: var(--amber); border-color: var(--amber-border); }
+
+/* Sensor grid (Zenmuse) */
+.sensor-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 24px; }
+@media (max-width: 768px) { .sensor-grid { grid-template-columns: 1fr; } }
+.sensor-card {
+  background: var(--navy); border-radius: 16px; overflow: hidden;
+  border: 1px solid rgba(75,138,244,0.15);
+  display: flex; flex-direction: column;
+  transition: transform 0.2s, border-color 0.2s;
+}
+.sensor-card:hover { transform: translateY(-4px); border-color: rgba(75,138,244,0.35); }
+.sensor-card-img {
+  position: relative; height: 200px;
+  display: flex; align-items: center; justify-content: center; overflow: hidden;
+}
+.sensor-card-img img { width:100%; height:100%; object-fit:cover; }
+.sensor-badge {
+  position: absolute; top: 12px; right: 12px;
+  color: #fff; font-size: 0.7rem; font-weight: 700;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  padding: 4px 10px; border-radius: 999px;
+}
+.sensor-body { padding: 24px; flex: 1; }
+.sensor-name { font-size: 1.0625rem; font-weight: 700; color: var(--white); margin-bottom: 6px; }
+.sensor-spec {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 0.775rem; color: var(--header-text); margin-bottom: 10px; font-weight: 500;
+}
+.sensor-desc { font-size: 0.875rem; color: var(--header-text); line-height: 1.65; margin-bottom: 16px; }
+[data-lucide] { display: block; }
+.icon-wrap [data-lucide] { width: 100%; height: 100%; }
+
+/* ── DROPDOWN ── */
+.nav-item { position: relative; }
+.nav-item > a { display: flex; align-items: center; gap: 5px; }
+.nav-dropdown {
+  display: none;
+  position: absolute; top: 100%; left: 50%;
+  transform: translateX(-50%);
+  padding-top: 14px;
+  background: transparent;
+  z-index: 200;
+}
+.nav-dropdown-inner {
+  background: var(--navy-mid);
+  border: 1px solid rgba(75,138,244,0.18);
+  border-radius: 14px;
+  padding: 8px;
+  min-width: 240px;
+  box-shadow: 0 16px 40px rgba(0,0,0,0.4);
+  position: relative;
+}
+.nav-dropdown-inner::before {
+  content: ""; position: absolute; top: -6px; left: 50%; 
+  transform: translateX(-50%) rotate(45deg);
+  width: 12px; height: 12px; background: var(--navy-mid);
+  border-left: 1px solid rgba(75,138,244,0.18);
+  border-top: 1px solid rgba(75,138,244,0.18);
+}
+.nav-item:hover .nav-dropdown { display: block; }
+.dropdown-item {
+  display: flex; align-items: center; gap: 12px;
+  padding: 11px 14px; border-radius: 9px;
+  text-decoration: none; color: var(--header-text);
+  font-size: 0.875rem; font-weight: 500;
+  transition: background 0.15s, color 0.15s;
+  white-space: nowrap;
+}
+.dropdown-item:hover { background: rgba(75,138,244,0.12); color: var(--white); }
+.dropdown-icon {
+  width: 32px; height: 32px; border-radius: 8px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+}
+.dropdown-divider { height: 1px; background: rgba(255,255,255,0.07); margin: 4px 0; }
+
+/* ── PAGE CONTENT STYLES ── */
+.page-hero { background:var(--navy); padding:140px 0 80px; position:relative; overflow:hidden; }
+.page-hero::before { content:""; position:absolute; inset:0; background:radial-gradient(ellipse 60% 60% at 60% 50%,rgba(29,85,212,0.15) 0%,transparent 70%); pointer-events:none; }
+.page-hero-inner { position:relative; z-index:1; max-width:700px; }
+.page-kicker { display:inline-flex; align-items:center; gap:8px; background:rgba(75,138,244,0.12); border:1px solid rgba(75,138,244,0.25); border-radius:999px; padding:6px 14px; font-size:0.75rem; font-weight:700; color:var(--blue-light); letter-spacing:0.08em; text-transform:uppercase; margin-bottom:24px; }
+.page-hero h1 { font-size:clamp(2rem,4vw,3rem); font-weight:700; color:#fff; line-height:1.1; margin-bottom:20px; }
+.page-hero h1 span { color:var(--blue-light); }
+.page-hero p { font-size:1.125rem; color:rgba(255,255,255,0.65); line-height:1.7; margin-bottom:36px; max-width:580px; }
+.page-btns { display:flex; gap:16px; flex-wrap:wrap; }
+.btn-back { background:transparent; color:#fff; border:1.5px solid rgba(255,255,255,0.4); border-radius:999px; padding:13px 24px; font-family:"DM Sans",sans-serif; font-weight:600; font-size:0.9375rem; text-decoration:none; }
+
+/* Content sections */
+.content-page { background:var(--page-bg); }
+.content-section { background:var(--white); border-radius:20px; padding:52px; margin-bottom:24px; }
+.content-section:nth-child(even) { background:var(--off-white); }
+.cs-kicker { display:inline-flex; align-items:center; gap:6px; font-size:0.7rem; font-weight:700; color:var(--muted); letter-spacing:0.1em; text-transform:uppercase; margin-bottom:12px; }
+.cs-title { font-size:clamp(1.375rem,2.5vw,1.875rem); font-weight:700; color:var(--navy); margin-bottom:20px; line-height:1.2; }
+.cs-body p { font-size:1rem; color:var(--slate); line-height:1.75; margin-bottom:16px; }
+.cs-body p:last-child { margin-bottom:0; }
+.cs-body h3 { font-size:1.0625rem; font-weight:700; color:var(--navy); margin:28px 0 10px; }
+.cs-body h4 { font-size:0.9375rem; font-weight:700; color:var(--blue); margin:20px 0 8px; }
+
+/* Feature list */
+.feat-list { list-style:none; display:flex; flex-direction:column; gap:8px; margin:16px 0; }
+.feat-list li { display:flex; align-items:flex-start; gap:10px; font-size:0.9375rem; color:var(--slate); line-height:1.55; padding:10px 14px; background:var(--off-white); border-radius:10px; }
+.feat-list li::before { content:"›"; color:var(--blue); font-weight:700; font-size:1rem; flex-shrink:0; margin-top:1px; }
+
+/* Delivery list */
+.delivery-list { list-style:none; display:grid; grid-template-columns:1fr 1fr; gap:8px; margin:16px 0; }
+@media(max-width:640px){ .delivery-list { grid-template-columns:1fr; } }
+.delivery-list li { display:flex; align-items:center; gap:8px; font-size:0.875rem; font-weight:500; color:var(--slate); padding:10px 14px; background:var(--teal-pale); border-radius:10px; }
+
+/* Info grid */
+.info-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:16px; margin:20px 0; }
+@media(max-width:640px){ .info-grid { grid-template-columns:1fr; } }
+.info-card { background:var(--navy); border-radius:14px; padding:24px; border:1px solid rgba(75,138,244,0.15); }
+.info-card-icon { width:40px; height:40px; border-radius:10px; background:rgba(29,85,212,0.2); display:flex; align-items:center; justify-content:center; color:var(--blue-light); margin-bottom:14px; }
+.info-card h3 { font-size:0.9375rem; font-weight:700; color:#fff; margin-bottom:8px; }
+.info-card p { font-size:0.875rem; color:var(--header-text); line-height:1.6; }
+
+/* Highlight box */
+.highlight-box { background:var(--navy); border-radius:16px; padding:32px; margin:24px 0; border-left:4px solid var(--blue-light); }
+.highlight-box p { color:rgba(255,255,255,0.8); font-size:1rem; line-height:1.7; margin:0; }
+.highlight-box strong { color:#fff; }
+
+/* CTA bottom */
+.page-cta { background:var(--navy); border-radius:20px; padding:52px; text-align:center; margin-bottom:24px; position:relative; overflow:hidden; }
+.page-cta::before { content:""; position:absolute; inset:0; background:radial-gradient(ellipse 60% 80% at 50% 100%,rgba(29,85,212,0.25) 0%,transparent 70%); pointer-events:none; }
+.page-cta h2 { color:#fff; font-size:1.75rem; margin-bottom:12px; position:relative; z-index:1; }
+.page-cta p { color:rgba(255,255,255,0.65); font-size:1rem; max-width:480px; margin:0 auto 28px; position:relative; z-index:1; }
+.page-cta-btns { display:flex; gap:16px; justify-content:center; flex-wrap:wrap; position:relative; z-index:1; }
+
+/* Steps */
+.steps { display:flex; flex-direction:column; gap:0; margin:16px 0; counter-reset:step-counter; }
+.step { display:flex; gap:20px; padding:16px 0; border-bottom:1px solid var(--border); }
+.step:last-child { border-bottom:none; }
+.step-num { width:32px; height:32px; border-radius:50%; background:var(--blue); color:#fff; font-size:0.8rem; font-weight:700; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:2px; }
+.step-content h4 { font-size:0.9375rem; font-weight:700; color:var(--navy); margin-bottom:4px; }
+.step-content p { font-size:0.875rem; color:var(--muted); line-height:1.6; margin:0; }
+
+/* Divider */
+.section-divider { height:1px; background:var(--border); margin:8px 0; }
+
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      <!-- NorthDrone_Logo_1: fullständig wordmark, vit text + blå accent, mörk bakgrund -->
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2000 1846" style="height:32px;width:auto;">
+        <path d="M1361 1616 c-25 -2 -47 -6 -70 -14 -28 -9 -49 -19 -75 -36 -21 -14 -34 -25 -52 -43 -23 -23 -33 -37 -53 -74 -2 -2 -5 -10 -8 -16 -25 -56 -33 -123 -22 -177 5 -27 17 -38 35 -35 3 1 8 2 11 4 9 4 29 20 42 32 17 18 21 26 25 58 3 20 3 20 6 32 17 70 67 123 136 143 24 8 59 10 84 5 70 -13 131 -67 152 -136 3 -10 5 -20 7 -36 1 -13 1 -17 0 -29 -2 -26 -8 -47 -19 -70 -16 -31 -39 -58 -65 -76 -30 -20 -57 -30 -98 -35 -23 -3 -36 -9 -49 -20 -8 -8 -31 -39 -37 -49 -11 -20 -6 -37 14 -44 12 -4 18 -5 58 -4 34 0 39 0 53 2 26 4 44 9 66 18 69 28 127 80 162 148 16 30 30 77 34 112 1 13 1 48 0 63 -7 73 -47 151 -103 199 -52 45 -108 71 -168 77 -11 2 -55 2 -66 1z M1382 1357 c-8 -2 -14 -5 -31 -18 -17 -13 -63 -49 -65 -52 0 -1 -11 -9 -31 -26 -4 -3 -12 -9 -17 -13 -6 -4 -16 -12 -22 -17 -6 -6 -15 -13 -19 -16 -8 -7 -15 -12 -32 -25 -19 -16 -40 -31 -45 -34 -3 -2 -7 -4 -10 -4 -4 -1 -48 -2 -138 -2 l-132 -1 -8 -2 c-27 -8 -48 -29 -56 -56 l-2 -7 -1 -131 c0 -146 1 -136 -7 -148 -6 -9 -20 -28 -31 -41 -8 -10 -15 -19 -39 -50 -5 -7 -13 -18 -18 -23 -4 -5 -10 -14 -14 -19 -9 -12 -22 -30 -36 -47 -6 -8 -15 -19 -19 -23 -3 -5 -9 -13 -12 -17 -7 -9 -22 -29 -26 -36 -7 -10 -11 -22 -11 -30 0 -12 6 -27 14 -35 6 -6 12 -10 23 -13 20 -6 32 0 64 28 7 6 26 22 33 27 2 1 7 5 11 9 4 4 12 10 16 14 5 3 12 8 15 11 2 2 16 13 30 25 27 22 29 24 49 39 18 14 25 19 26 20 2 2 20 17 27 22 12 9 16 11 29 12 15 1 197 1 207 0 11 -1 19 -6 35 -19 7 -6 20 -16 28 -22 8 -6 17 -14 21 -17 3 -2 10 -8 15 -11 9 -7 13 -11 46 -38 10 -9 23 -19 29 -24 13 -10 47 -38 71 -57 15 -13 26 -18 36 -20 10 -1 22 1 31 7 13 8 21 23 23 40 0 6 0 9 -2 16 -2 4 -5 10 -7 14 -4 6 -30 42 -35 48 -4 4 -14 17 -33 41 -7 9 -19 25 -27 35 -8 10 -20 26 -27 35 -7 9 -14 19 -16 22 -3 2 -12 14 -21 26 -9 12 -21 28 -27 37 -6 8 -13 17 -14 20 l-2 5 0 99 c0 98 0 99 2 103 2 5 24 35 31 45 3 2 8 9 13 16 5 6 14 17 21 26 6 8 13 17 15 20 6 8 20 27 26 34 2 3 9 12 15 20 6 7 19 24 29 37 57 75 57 76 57 94 0 18 -8 33 -22 41 -11 7 -23 9 -33 6z M1356 834 c-36 -3 -49 -11 -51 -27 -2 -10 3 -21 16 -38 26 -35 36 -44 55 -49 4 -2 16 -4 27 -5 27 -4 43 -9 62 -17 9 -5 25 -14 34 -20 10 -8 34 -31 42 -42 21 -29 34 -63 38 -102 3 -28 -4 -63 -19 -93 -27 -57 -78 -95 -140 -107 -11 -2 -16 -2 -34 -2 -19 0 -24 0 -34 2 -61 12 -109 49 -137 105 -13 26 -17 40 -22 80 -2 23 -6 33 -17 46 -11 12 -39 35 -49 40 -16 7 -28 5 -37 -6 -5 -7 -11 -23 -12 -39 -6 -49 -1 -93 15 -140 5 -15 15 -36 20 -45 2 -4 4 -7 4 -8 0 -1 22 -33 30 -42 42 -53 109 -94 177 -108 37 -8 92 -8 130 0 48 11 99 36 137 69 37 32 67 73 85 117 22 54 29 102 22 161 -3 30 -16 69 -32 102 -9 16 -25 41 -36 54 -38 45 -87 80 -138 98 -19 7 -48 14 -66 16 -4 0 -8 0 -9 1 -6 1 -49 1 -61 -1z M592 834 c-18 -1 -27 -2 -35 -4 -53 -11 -100 -33 -141 -66 -77 -61 -122 -163 -115 -260 4 -63 29 -127 67 -175 11 -14 38 -41 52 -51 38 -30 79 -50 125 -60 7 -2 17 -3 22 -4 5 -1 13 -2 17 -2 4 -1 16 -1 28 -1 48 0 93 10 135 31 16 8 21 10 38 21 36 25 64 53 88 90 25 37 42 82 49 130 1 9 1 18 1 38 0 63 -10 88 -33 88 -11 0 -23 -6 -44 -22 -32 -27 -38 -37 -41 -76 -4 -36 -14 -65 -34 -95 -42 -62 -117 -95 -189 -83 -50 9 -95 36 -124 76 -48 65 -51 150 -6 217 22 35 53 60 93 76 16 7 36 12 54 14 22 2 38 8 50 19 11 10 34 39 40 52 3 7 3 8 3 15 0 6 0 9 -1 12 -7 12 -21 17 -51 20 -12 1 -40 1 -48 0z" fill="#ffffff"/>
+        <path d="M693 1635 c-4 0 -12 -2 -16 -3 -12 -2 -21 -4 -34 -7 -12 -3 -37 -11 -40 -13 -2 0 -7 -3 -13 -5 -6 -2 -12 -5 -13 -5 -1 -1 -10 -5 -19 -10 -10 -5 -19 -9 -21 -10 -2 -2 -6 -4 -10 -7 -18 -10 -45 -29 -60 -43 -17 -15 -40 -38 -50 -50 -1 -1 -5 -5 -8 -9 -2 -3 -6 -7 -7 -9 -1 -2 -3 -4 -3 -4 -1 -1 -16 -22 -17 -24 -1 -1 -3 -4 -5 -7 -21 -32 -39 -70 -50 -108 -10 -30 -12 -42 -8 -55 8 -32 45 -45 76 -26 3 2 9 6 13 11 9 9 13 16 17 32 10 33 21 61 40 93 4 7 19 27 26 37 35 44 81 79 132 101 20 8 47 17 63 20 28 4 37 8 46 18 8 8 11 13 14 21 3 8 4 23 2 31 -3 13 -12 24 -24 29 -7 4 -19 5 -31 2z M742 1471 c-2 0 -6 -1 -11 -2 -26 -6 -64 -22 -89 -37 -39 -24 -74 -56 -102 -93 -11 -15 -14 -19 -16 -24 -1 -2 -3 -5 -3 -6 -14 -21 -24 -43 -33 -71 -4 -11 -8 -27 -8 -31 0 -24 16 -42 38 -44 10 0 18 1 28 6 15 8 26 20 32 40 9 24 14 38 24 55 20 35 53 69 88 90 10 6 26 14 28 14 1 0 2 1 3 1 2 2 16 6 35 12 4 1 9 3 11 5 19 11 27 32 23 54 -3 13 -12 25 -25 30 -5 1 -20 2 -23 1z M796 1314 c-18 -5 -33 -11 -49 -20 -13 -7 -27 -16 -35 -22 -7 -7 -19 -18 -26 -26 -13 -14 -14 -15 -23 -28 -4 -6 -8 -13 -9 -14 -5 -8 -16 -32 -23 -50 -3 -12 -4 -25 0 -34 10 -27 49 -30 74 -5 7 7 11 13 15 23 4 11 11 26 15 32 11 17 25 31 41 41 10 7 20 12 31 15 2 1 4 2 4 2 1 1 2 1 4 1 2 0 5 1 15 7 3 1 10 9 13 15 3 6 5 13 5 22 0 15 -8 28 -21 36 -9 5 -22 7 -31 5z" fill="#5b8def"/>
+      </svg>
+      <div class="nav-wordmark">
+        <span class="n">North Drone&nbsp;</span><span class="a">Analytics</span>
+      </div>
+    </a>
+    <div class="nav-links">
+      <div class="nav-item">
+        <a href="#tjanster">Tjänster <i data-lucide="chevron-down" style="width:14px;height:14px;opacity:0.6;"></i></a>
+        <div class="nav-dropdown">
+          <div class="nav-dropdown-inner">
+          <a href="#tjanster" class="dropdown-item" onclick="switchTab('kommunal', document.querySelectorAll('.tab-btn')[0])">
+            <div class="dropdown-icon" style="background:rgba(14,159,142,0.15)"><i data-lucide="landmark" style="width:16px;height:16px;color:var(--teal)"></i></div>
+            <div>
+              <div style="color:var(--white);font-weight:600;font-size:0.875rem;">För kommuner</div>
+              <div style="font-size:0.75rem;margin-top:1px;">VA · GIS · Fastighetsförvaltning</div>
+            </div>
+          </a>
+          <div class="dropdown-divider"></div>
+          <a href="#tjanster" class="dropdown-item" onclick="switchTab('fastighet', document.querySelectorAll('.tab-btn')[1])">
+            <div class="dropdown-icon" style="background:rgba(112,56,232,0.15)"><i data-lucide="building" style="width:16px;height:16px;color:var(--purple)"></i></div>
+            <div>
+              <div style="color:var(--white);font-weight:600;font-size:0.875rem;">Fastighetsägare & BRF</div>
+              <div style="font-size:0.75rem;margin-top:1px;">Tak · Solceller · Underhållsplan</div>
+            </div>
+          </a>
+          <div class="dropdown-divider"></div>
+          <a href="fastighetsutvecklare.html" class="dropdown-item">
+            <div class="dropdown-icon" style="background:rgba(217,119,6,0.15)"><i data-lucide="building-2" style="width:16px;height:16px;color:var(--amber)"></i></div>
+            <div>
+              <div style="color:var(--white);font-weight:600;font-size:0.875rem;">För fastighetsutvecklaren</div>
+              <div style="font-size:0.75rem;margin-top:1px;">Dokumentation · Uppföljning · Data</div>
+            </div>
+          </a>
+          <div class="dropdown-divider"></div>
+          <a href="projektering.html" class="dropdown-item">
+            <div class="dropdown-icon" style="background:rgba(29,85,212,0.15)"><i data-lucide="ruler" style="width:16px;height:16px;color:var(--blue-light)"></i></div>
+            <div>
+              <div style="color:var(--white);font-weight:600;font-size:0.875rem;">För projektering</div>
+              <div style="font-size:0.75rem;margin-top:1px;">Kartor · 3D · Mätning · GIS</div>
+            </div>
+          </a>
+          <div class="dropdown-divider"></div>
+          <a href="entreprenorer.html" class="dropdown-item">
+            <div class="dropdown-icon" style="background:rgba(24,165,86,0.15)"><i data-lucide="hard-hat" style="width:16px;height:16px;color:var(--green)"></i></div>
+            <div>
+              <div style="color:var(--white);font-weight:600;font-size:0.875rem;">För entreprenörer</div>
+              <div style="font-size:0.75rem;margin-top:1px;">Byggdokumentation · Volymer · Kontroll</div>
+            </div>
+          </a>
+          </div>
+        </div>
+      </div>
+      <a href="#kameror">Teknik</a>
+      <a href="#leverans">Leverans</a>
+      <a href="#om-oss">Om oss</a>
+      <a href="#kontakt" class="btn-nav">Kontakta oss</a>
+    </div>
+    <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#tjanster" onclick="closeMenu()">Tjänster</a>
+  <a href="#kameror" onclick="closeMenu()">Teknik</a>
+  <a href="#leverans" onclick="closeMenu()">Leverans</a>
+  <a href="#om-oss" onclick="closeMenu()">Om oss</a>
+  <a href="#kontakt" class="btn-primary" onclick="closeMenu()">Kontakta oss</a>
+</div>
+
+<section class="page-hero">
+  <div class="container">
+    <div class="page-hero-inner">
+      <div class="page-kicker"><i data-lucide="building-2" style="width:12px;height:12px;"></i> Fastighetsutveckling</div>
+      <h1>Drönartjänster<br><span>för fastighetsutvecklaren</span></h1>
+      <p>Från termisk scanning av köldbryggor till fotorealistiska 3D-visualiseringar — vi levererar data och underlag som stärker dina projekt från idé till färdig byggnad.</p>
+      <div class="page-btns">
+        <a href="index.html#kontakt" class="btn-primary">Kontakta oss →</a>
+        <a href="index.html" class="btn-back">← Startsidan</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="content-page">
+  <div class="container" style="padding-top:40px;padding-bottom:60px;">
+    
+<div class="content-section">
+  <div class="cs-kicker"><i data-lucide="thermometer" style="width:13px;height:13px;"></i> Termisk scanning</div>
+  <h2 class="cs-title">Termisk scanning — identifiera köldbryggor för ett mer hållbart byggsystem</h2>
+  <div class="cs-body"><p>För dig som utvecklar fastigheter är termisk scanning ett ovärderligt verktyg. Genom drönarbaserad värmekamerateknik på befintliga byggnader eller prototyper ser du snabbt och tydligt var köldbryggor uppstår — de svaga punkter i klimatskalet där värme läcker ut och energieffektiviteten försämras.</p>
+<h3>Från mätdata till bättre konstruktioner</h3>
+<p>Köldbryggor uppstår ofta vid anslutningar mellan olika byggdelar — vid fönsterkarmar, balkonginfästningar, hörn och genomföringar. Dessa är svåra att hitta med blotta ögat men syns tydligt i en termisk bild som en avvikande temperatursignatur. Vi levererar en detaljerad analys som visar exakt var och hur kraftiga köldbryggornas effekt är.</p>
+<p>Med den informationen kan du som fastighetsutvecklare justera konstruktionsdetaljer, välja bättre isoleringsmaterial eller förändra anslutningsmetoder — och systematiskt förbättra energiprestandan i kommande projekt.</p>
+<h3>Hållbarhet som konkurrensfördel</h3>
+<p>Byggnader med lägre energiförbrukning och färre konstruktionsbrister är mer attraktiva på marknaden, ger lägre driftkostnader för framtida ägare och uppfyller enklare de allt hårdare krav som ställs i energideklarationer och miljöcertifieringssystem som Miljöbyggnad och BREEAM.</p><ul class="delivery-list"><li><i data-lucide="check" style="width:14px;height:14px;color:var(--teal)"></i> Detaljerad termisk analys med köldbryggspositioner</li><li><i data-lucide="check" style="width:14px;height:14px;color:var(--teal)"></i> Högupplösta IR-bilder med kommentarer</li><li><i data-lucide="check" style="width:14px;height:14px;color:var(--teal)"></i> Matchande RGB-bilder för jämförelse</li><li><i data-lucide="check" style="width:14px;height:14px;color:var(--teal)"></i> Termiska kartor över klimatskalet</li><li><i data-lucide="check" style="width:14px;height:14px;color:var(--teal)"></i> Åtgärdsrekommendationer per konstruktionsdetalj</li><li><i data-lucide="check" style="width:14px;height:14px;color:var(--teal)"></i> Uppföljande konsultation</li></ul></div>
+</div>
+<div class="content-section">
+  <div class="cs-kicker"><i data-lucide="image" style="width:13px;height:13px;"></i> 3D & Visualisering</div>
+  <h2 class="cs-title">Områdesskanning för 3D-renderade bilder av kommande projekt</h2>
+  <div class="cs-body"><p>Vill du skapa fotorealistiska 3D-renderingar av ett kommande bygg- eller utvecklingsprojekt som verkligen stämmer överens med verkligheten? Vi skannar det aktuella området med drönare och skapar ett exakt digitalt underlag som ditt visualiseringsteam eller din arkitekt kan använda som grund.</p>
+<h3>Varför exakt underlag gör skillnad</h3>
+<p>Traditionella 3D-renderingar byggs ofta på ofullständiga kartor, vilket ger ett missvisande intryck av hur projektet faktiskt kommer att upplevas. Med ett drönarbaserat punktmoln som grund stämmer ljussättning, skuggfall, siktlinjer och proportioner exakt mot verkligheten — avgörande för marknadsföring, investerarpresentationer och dialog med kommuner.</p><div class="info-grid"><div class="info-card">
+      <div class="info-card-icon"><i data-lucide="image" style="width:20px;height:20px;"></i></div>
+      <h3>Fotorealistiska renderingar</h3>
+      <p>Ljussättning, skuggor och proportioner stämmer exakt mot verkligheten.</p>
+    </div><div class="info-card">
+      <div class="info-card-icon"><i data-lucide="play" style="width:20px;height:20px;"></i></div>
+      <h3>Animationer</h3>
+      <p>Genomgångsvyer och animationer som passar för video och möten.</p>
+    </div><div class="info-card">
+      <div class="info-card-icon"><i data-lucide="layout" style="width:20px;height:20px;"></i></div>
+      <h3>Interaktiva miljöer</h3>
+      <p>3D-miljöer som kan bäddas in på webben och delas med intressenter.</p>
+    </div><div class="info-card">
+      <div class="info-card-icon"><i data-lucide="git-compare" style="width:20px;height:20px;"></i></div>
+      <h3>Jämförande vyer</h3>
+      <p>Visa olika designalternativ sida vid sida mot det verkliga underlaget.</p>
+    </div></div><h3>Vad vi levererar som underlag</h3><ul class="feat-list"><li>Georefererad 3D-modell i filformat som passar ert arbetsflöde (OBJ, FBX, LAS/LAZ)</li><li>Terräng, befintliga byggnader och vegetation med hög detaljeringsgrad</li><li>Leverans i korrekt koordinatsystem (SWEREF99 TM)</li><li>Underlag för stillbilder, animationer och interaktiva presentationer</li></ul></div>
+</div>
+<div class="content-section">
+  <div class="cs-kicker"><i data-lucide="monitor" style="width:13px;height:13px;"></i> Visualisering</div>
+  <h2 class="cs-title">Visualiseringar — fotorealistisk 3D-modellering</h2>
+  <div class="cs-body"><p>Med drönarbaserad 3D-visualisering skapar vi fotorealistiska representationer av projektområden och planerade förändringar, byggda på faktiska geografiska data. Eftersom underlaget bygger på verklig inmätning stämmer visualiseringen exakt överens med verkligheten.</p>
+<h3>Format och användning</h3><ul class="feat-list"><li>Stillbilder för presentationer och utskriftsmaterial</li><li>Interaktiva 3D-miljöer som kan bäddas in på webben</li><li>Animationer och genomgångsvyer för video och möten</li><li>Jämförande visualiseringar med olika designalternativ sida vid sida</li></ul><p>Visualiseringar används inom stadsplanering, infrastrukturprojekt, fastighetsutveckling och medborgardialog — i alla situationer där det är viktigt att fatta välgrundade beslut och kommunicera tydligt.</p></div>
+</div>
+<div class="content-section">
+  <div class="cs-kicker"><i data-lucide="layers" style="width:13px;height:13px;"></i> Digital tvilling</div>
+  <h2 class="cs-title">Laserskanning & digital tvilling av fastigheten</h2>
+  <div class="cs-body"><p>Med 3D-skanning skapar vi en exakt digital kopia av fastigheten. Den digitala tvillingen samlar all information på ett ställe och ger en helt ny möjlighet att planera och utveckla utan att behöva boka in dyra besök.</p><ul class="feat-list"><li>Navigera och mäta fritt i fastigheten direkt på skärmen</li><li>Experimentera med design och ombyggnationer direkt i punktmolnet</li><li>Underlag för energianalyser, projektering och bygghandlingar</li><li>Dokumentation inför renovering, ombyggnad och upphandling</li></ul><ul class="delivery-list"><li><i data-lucide="check" style="width:14px;height:14px;color:var(--teal)"></i> Tätt punktmoln — noggrann 3D-avbildning</li><li><i data-lucide="check" style="width:14px;height:14px;color:var(--teal)"></i> 360-viewer för virtuell navigering</li><li><i data-lucide="check" style="width:14px;height:14px;color:var(--teal)"></i> BIM-modeller (Revit, ArchiCAD)</li><li><i data-lucide="check" style="width:14px;height:14px;color:var(--teal)"></i> 2D-ritningar och relationshandlingar</li><li><i data-lucide="check" style="width:14px;height:14px;color:var(--teal)"></i> Ortofoto av tak och tomtmark</li><li><i data-lucide="check" style="width:14px;height:14px;color:var(--teal)"></i> MEP-modeller för el och VVS</li></ul></div>
+</div>
+<div class="content-section">
+  <div class="cs-kicker"><i data-lucide="git-branch" style="width:13px;height:13px;"></i> Arbetsprocess</div>
+  <h2 class="cs-title">Så arbetar vi — inspektionsflöde och förberedelser</h2>
+  <div class="cs-body"><p>Varje uppdrag börjar med en konsultation där vi identifierar era mål och utformar den bästa möjliga planen för projektet.</p>
+<h3>Förberedelser och planering</h3>
+<p>Innan varje flygning genomförs en grundlig platsanalys för att förstå området och identifiera kritiska punkter. Vi planerar flygrutten utifrån alla relevanta ytor och inspektionsmål, kontrollerar väderprognoser för att säkerställa optimala flygförhållanden och förbereder all utrustning inklusive kameror, sensorer och säkerhetssystem. Vi samordnar med personal på plats och säkerställer att alla säkerhetsprotokoll följs.</p>
+<ul class="feat-list"><li>Platsanalys och datagranskning för att förstå området och identifiera kritiska punkter</li><li>Planering av flygrutt baserat på alla relevanta ytor och inspektionsmål</li><li>Väderkontroll för att säkerställa optimala flygförhållanden</li><li>Utrustningsförberedelser inklusive kameror, sensorer och säkerhetssystem</li><li>Samordning med personal på plats och säkerställande av att alla säkerhetsprotokoll följs</li></ul></div>
+</div>
+<div class="page-cta">
+  <h2>Redo att bygga bättre fastigheter?</h2>
+  <p>Vi berättar gärna hur North Drone Analytics kan stärka er fastighetsutveckling. Boka ett kostnadsfritt inledande samtal.</p>
+  <div class="page-cta-btns">
+    <a href="index.html#kontakt" class="btn-primary">Kontakta oss →</a>
+    <a href="index.html" class="btn-back">← Startsidan</a>
+  </div>
+</div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+          <svg width="32" height="32" style="background:#0d1b2e;border-radius:7px;" xmlns="http://www.w3.org/2000/svg" viewBox="616.41 538.93 767.06 767.06">
+            <rect x="616.41" y="538.93" width="767.06" height="767.06" fill="#0d1b2e"/>
+            <path d="M1110 1191 c-4 0 -13 -2 -19 -3 -44 -8 -96 -27 -136 -50 -47 -27 -92 -65 -125 -105 -26 -32 -39 -52 -56 -85 -16 -30 -27 -59 -35 -89 -7 -26 -4 -43 9 -57 10 -10 22 -15 37 -14 17 1 30 7 42 20 7 7 11 14 14 27 15 48 29 79 53 114 16 24 46 56 69 74 20 17 47 33 68 43 4 2 9 4 12 5 8 4 28 11 40 14 12 3 14 4 31 7 19 4 25 6 34 15 12 11 18 24 18 41 0 5 0 11 -1 14 -3 12 -11 22 -23 27 -5 3 -8 3 -15 4 -6 0 -12 -1 -17 -2z M1154 1026 c-46 -10 -94 -34 -132 -65 -10 -7 -40 -36 -48 -45 -10 -13 -25 -33 -31 -43 -2 -2 -3 -5 -4 -6 -18 -28 -41 -86 -41 -104 0 -22 12 -37 31 -43 17 -4 39 4 53 20 7 8 10 14 17 33 9 28 24 56 42 79 9 11 28 31 40 40 26 20 51 33 84 43 22 7 31 13 39 29 11 23 3 50 -19 60 -8 4 -20 5 -31 2z M1210 869 c-4 -1 -9 -2 -10 -3 -13 -5 -19 -7 -30 -13 -23 -11 -40 -24 -59 -43 -25 -26 -43 -52 -56 -84 -9 -23 -11 -35 -7 -47 5 -16 16 -24 35 -24 9 0 15 1 23 5 14 7 25 19 31 34 10 27 19 40 35 57 17 16 32 25 56 33 18 6 27 12 33 25 2 4 4 9 4 13 3 12 -2 27 -11 37 -12 11 -27 14 -44 10z" fill="#ffffff"/>
+          </svg>
+          <!-- Full wordmark Logo_1: vit text + blå accent, mörk bakgrund -->
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2000 1846" style="height:28px;width:auto;">
+            <path d="M1361 1616 c-25 -2 -47 -6 -70 -14 -28 -9 -49 -19 -75 -36 -21 -14 -34 -25 -52 -43 -23 -23 -33 -37 -53 -74 -2 -2 -5 -10 -8 -16 -25 -56 -33 -123 -22 -177 5 -27 17 -38 35 -35 3 1 8 2 11 4 9 4 29 20 42 32 17 18 21 26 25 58 3 20 3 20 6 32 17 70 67 123 136 143 24 8 59 10 84 5 70 -13 131 -67 152 -136 3 -10 5 -20 7 -36 1 -13 1 -17 0 -29 -2 -26 -8 -47 -19 -70 -16 -31 -39 -58 -65 -76 -30 -20 -57 -30 -98 -35 -23 -3 -36 -9 -49 -20 -8 -8 -31 -39 -37 -49 -11 -20 -6 -37 14 -44 12 -4 18 -5 58 -4 34 0 39 0 53 2 26 4 44 9 66 18 69 28 127 80 162 148 16 30 30 77 34 112 1 13 1 48 0 63 -7 73 -47 151 -103 199 -52 45 -108 71 -168 77 -11 2 -55 2 -66 1z M1382 1357 c-8 -2 -14 -5 -31 -18 -17 -13 -63 -49 -65 -52 0 -1 -11 -9 -31 -26 -4 -3 -12 -9 -17 -13 -6 -4 -16 -12 -22 -17 -6 -6 -15 -13 -19 -16 -8 -7 -15 -12 -32 -25 -19 -16 -40 -31 -45 -34 -3 -2 -7 -4 -10 -4 -4 -1 -48 -2 -138 -2 l-132 -1 -8 -2 c-27 -8 -48 -29 -56 -56 l-2 -7 -1 -131 c0 -146 1 -136 -7 -148 -6 -9 -20 -28 -31 -41 -8 -10 -15 -19 -39 -50 -5 -7 -13 -18 -18 -23 -4 -5 -10 -14 -14 -19 -9 -12 -22 -30 -36 -47 -6 -8 -15 -19 -19 -23 -3 -5 -9 -13 -12 -17 -7 -9 -22 -29 -26 -36 -7 -10 -11 -22 -11 -30 0 -12 6 -27 14 -35 6 -6 12 -10 23 -13 20 -6 32 0 64 28 7 6 26 22 33 27 2 1 7 5 11 9 4 4 12 10 16 14 5 3 12 8 15 11 2 2 16 13 30 25 27 22 29 24 49 39 18 14 25 19 26 20 2 2 20 17 27 22 12 9 16 11 29 12 15 1 197 1 207 0 11 -1 19 -6 35 -19 7 -6 20 -16 28 -22 8 -6 17 -14 21 -17 3 -2 10 -8 15 -11 9 -7 13 -11 46 -38 10 -9 23 -19 29 -24 13 -10 47 -38 71 -57 15 -13 26 -18 36 -20 10 -1 22 1 31 7 13 8 21 23 23 40 0 6 0 9 -2 16 -2 4 -5 10 -7 14 -4 6 -30 42 -35 48 -4 4 -14 17 -33 41 -7 9 -19 25 -27 35 -8 10 -20 26 -27 35 -7 9 -14 19 -16 22 -3 2 -12 14 -21 26 -9 12 -21 28 -27 37 -6 8 -13 17 -14 20 l-2 5 0 99 c0 98 0 99 2 103 2 5 24 35 31 45 3 2 8 9 13 16 5 6 14 17 21 26 6 8 13 17 15 20 6 8 20 27 26 34 2 3 9 12 15 20 6 7 19 24 29 37 57 75 57 76 57 94 0 18 -8 33 -22 41 -11 7 -23 9 -33 6z M1356 834 c-36 -3 -49 -11 -51 -27 -2 -10 3 -21 16 -38 26 -35 36 -44 55 -49 4 -2 16 -4 27 -5 27 -4 43 -9 62 -17 9 -5 25 -14 34 -20 10 -8 34 -31 42 -42 21 -29 34 -63 38 -102 3 -28 -4 -63 -19 -93 -27 -57 -78 -95 -140 -107 -11 -2 -16 -2 -34 -2 -19 0 -24 0 -34 2 -61 12 -109 49 -137 105 -13 26 -17 40 -22 80 -2 23 -6 33 -17 46 -11 12 -39 35 -49 40 -16 7 -28 5 -37 -6 -5 -7 -11 -23 -12 -39 -6 -49 -1 -93 15 -140 5 -15 15 -36 20 -45 2 -4 4 -7 4 -8 0 -1 22 -33 30 -42 42 -53 109 -94 177 -108 37 -8 92 -8 130 0 48 11 99 36 137 69 37 32 67 73 85 117 22 54 29 102 22 161 -3 30 -16 69 -32 102 -9 16 -25 41 -36 54 -38 45 -87 80 -138 98 -19 7 -48 14 -66 16 -4 0 -8 0 -9 1 -6 1 -49 1 -61 -1z M592 834 c-18 -1 -27 -2 -35 -4 -53 -11 -100 -33 -141 -66 -77 -61 -122 -163 -115 -260 4 -63 29 -127 67 -175 11 -14 38 -41 52 -51 38 -30 79 -50 125 -60 7 -2 17 -3 22 -4 5 -1 13 -2 17 -2 4 -1 16 -1 28 -1 48 0 93 10 135 31 16 8 21 10 38 21 36 25 64 53 88 90 25 37 42 82 49 130 1 9 1 18 1 38 0 63 -10 88 -33 88 -11 0 -23 -6 -44 -22 -32 -27 -38 -37 -41 -76 -4 -36 -14 -65 -34 -95 -42 -62 -117 -95 -189 -83 -50 9 -95 36 -124 76 -48 65 -51 150 -6 217 22 35 53 60 93 76 16 7 36 12 54 14 22 2 38 8 50 19 11 10 34 39 40 52 3 7 3 8 3 15 0 6 0 9 -1 12 -7 12 -21 17 -51 20 -12 1 -40 1 -48 0z" fill="#ffffff"/>
+            <path d="M693 1635 c-4 0 -12 -2 -16 -3 -12 -2 -21 -4 -34 -7 -12 -3 -37 -11 -40 -13 -2 0 -7 -3 -13 -5 -6 -2 -12 -5 -13 -5 -1 -1 -10 -5 -19 -10 -10 -5 -19 -9 -21 -10 -2 -2 -6 -4 -10 -7 -18 -10 -45 -29 -60 -43 -17 -15 -40 -38 -50 -50 -1 -1 -5 -5 -8 -9 -2 -3 -6 -7 -7 -9 -1 -2 -3 -4 -3 -4 -1 -1 -16 -22 -17 -24 -1 -1 -3 -4 -5 -7 -21 -32 -39 -70 -50 -108 -10 -30 -12 -42 -8 -55 8 -32 45 -45 76 -26 3 2 9 6 13 11 9 9 13 16 17 32 10 33 21 61 40 93 4 7 19 27 26 37 35 44 81 79 132 101 20 8 47 17 63 20 28 4 37 8 46 18 8 8 11 13 14 21 3 8 4 23 2 31 -3 13 -12 24 -24 29 -7 4 -19 5 -31 2z M742 1471 c-2 0 -6 -1 -11 -2 -26 -6 -64 -22 -89 -37 -39 -24 -74 -56 -102 -93 -11 -15 -14 -19 -16 -24 -1 -2 -3 -5 -3 -6 -14 -21 -24 -43 -33 -71 -4 -11 -8 -27 -8 -31 0 -24 16 -42 38 -44 10 0 18 1 28 6 15 8 26 20 32 40 9 24 14 38 24 55 20 35 53 69 88 90 10 6 26 14 28 14 1 0 2 1 3 1 2 2 16 6 35 12 4 1 9 3 11 5 19 11 27 32 23 54 -3 13 -12 25 -25 30 -5 1 -20 2 -23 1z M796 1314 c-18 -5 -33 -11 -49 -20 -13 -7 -27 -16 -35 -22 -7 -7 -19 -18 -26 -26 -13 -14 -14 -15 -23 -28 -4 -6 -8 -13 -9 -14 -5 -8 -16 -32 -23 -50 -3 -12 -4 -25 0 -34 10 -27 49 -30 74 -5 7 7 11 13 15 23 4 11 11 26 15 32 11 17 25 31 41 41 10 7 20 12 31 15 2 1 4 2 4 2 1 1 2 1 4 1 2 0 5 1 15 7 3 1 10 9 13 15 3 6 5 13 5 22 0 15 -8 28 -21 36 -9 5 -22 7 -31 5z" fill="#5b8def"/>
+          </svg>
+        </div>
+        <p>Från insamling till insikt — anpassat efter dina behov. Baserade i Göteborg, verksamma i hela Sverige.</p>
+        <p style="margin-top:8px;"><a href="https://northdroneanalytics.se" style="color:var(--blue-light);text-decoration:none;">northdroneanalytics.se</a></p>
+      </div>
+      <div class="footer-col">
+        <h4>Kommunal</h4>
+        <ul>
+          <li><a href="#tjanster">Vatten & Avlopp</a></li>
+          <li><a href="#tjanster">Mätning & GIS</a></li>
+          <li><a href="#tjanster">Fastighet & Förvaltning</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Fastigheter</h4>
+        <ul>
+          <li><a href="#tjanster">Tak & Fasad</a></li>
+          <li><a href="#tjanster">Solceller & Energi</a></li>
+          <li><a href="#tjanster">Underhållsplan</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Teknik</h4>
+        <ul>
+          <li><a href="#kameror">Värmekamera</a></li>
+          <li><a href="#kameror">Multispektral</a></li>
+          <li><a href="#kameror">RGB-kamera</a></li>
+          <li><a href="#leverans">Leveransformat</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 North Drone Analytics. Alla rättigheter förbehålls.</p>
+      <p>Göteborg · <a href="/cdn-cgi/l/email-protection#3a53545c557a5455484e525e4855545f5b545b56434e53594914495f"><span class="__cf_email__" data-cfemail="345d5a525b745a5b46405c50465b5a51555a55584d405d57471a4751">[email&#160;protected]</span></a></p>
+    </div>
+  </div>
+</footer>
+
+<script>
+lucide.createIcons();
+
+// Scroll animations
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.style.opacity = '1';
+      entry.target.style.transform = 'translateY(0)';
+      entry.target.style.transition = '
+<script>lucide.createIcons();</script>
+</body>
+</html>
