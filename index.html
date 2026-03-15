@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>North Drone Analytics — Från insamling till insikt</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+
 <script>
 function switchTab(id, btn) {
   document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
@@ -63,9 +63,9 @@ body {
 }
 
 /* ── TYPOGRAPHY ── */
-h1 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; color: var(--white); line-height: 1.1; }
+h1 { font-size: clamp(2.5rem, 5vw, 3.75rem); font-weight: 700; color: var(--white); line-height: 1.1; }
 h1 span { color: var(--blue-light); }
-h2 { font-size: clamp(1.5rem, 2.5vw, 2rem); font-weight: 700; color: var(--navy); }
+h2 { font-size: clamp(1.75rem, 3vw, 2.5rem); font-weight: 700; color: var(--navy); }
 h3 { font-size: clamp(1rem, 1.5vw, 1.25rem); font-weight: 600; }
 p { font-size: 1rem; line-height: 1.65; color: var(--slate); }
 .text-muted { color: var(--muted); font-size: 0.875rem; }
@@ -621,6 +621,14 @@ footer {
 }
 .dropdown-divider { height: 1px; background: rgba(255,255,255,0.07); margin: 4px 0; }
 </style>
+<script>
+(function() {
+  var s = document.createElement('script');
+  s.src = 'https://unpkg.com/lucide@0.383.0/dist/umd/lucide.min.js';
+  s.onload = function() { lucide.createIcons(); };
+  document.head.appendChild(s);
+})();
+</script>
 </head>
 <body>
 
