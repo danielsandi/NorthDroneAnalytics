@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>North Drone Analytics — För kommuner</title>
+<title>North Drone Analytics — Om oss</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 <script>
@@ -273,7 +273,7 @@ nav {
   background: var(--white); border-radius: 16px; padding: 32px;
   transition: transform 0.2s, box-shadow 0.2s;
 }
-.service-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(8,21,42,0.1); }
+.service-card:hover { transform: scale(1.02); box-shadow: 0 8px 32px rgba(8,21,42,0.12); }
 .service-card-icon {
   width: 52px; height: 52px; border-radius: 13px;
   display: flex; align-items: center; justify-content: center;
@@ -621,7 +621,6 @@ footer {
 }
 .dropdown-divider { height: 1px; background: rgba(255,255,255,0.07); margin: 4px 0; }
 
-/* ── PAGE CONTENT STYLES ── */
 .page-hero { background:var(--navy); padding:140px 0 80px; position:relative; overflow:hidden; }
 .page-hero::before { content:""; position:absolute; inset:0; background:radial-gradient(ellipse 60% 60% at 60% 50%,rgba(29,85,212,0.15) 0%,transparent 70%); pointer-events:none; }
 .page-hero-inner { position:relative; z-index:1; max-width:700px; }
@@ -629,61 +628,10 @@ footer {
 .page-hero h1 { font-size:clamp(2rem,4vw,3rem); font-weight:700; color:#fff; line-height:1.1; margin-bottom:20px; }
 .page-hero h1 span { color:var(--blue-light); }
 .page-hero p { font-size:1.125rem; color:rgba(255,255,255,0.65); line-height:1.7; margin-bottom:36px; max-width:580px; }
-.page-btns { display:flex; gap:16px; flex-wrap:wrap; }
 .btn-back { background:transparent; color:#fff; border:1.5px solid rgba(255,255,255,0.4); border-radius:999px; padding:13px 24px; font-family:"DM Sans",sans-serif; font-weight:600; font-size:0.9375rem; text-decoration:none; }
 
-/* Content sections */
-.content-page { background:var(--page-bg); }
-.content-section { background:var(--white); border-radius:20px; padding:52px; margin-bottom:24px; }
-.content-section:nth-child(even) { background:var(--off-white); }
-.cs-kicker { display:inline-flex; align-items:center; gap:6px; font-size:0.7rem; font-weight:700; color:var(--muted); letter-spacing:0.1em; text-transform:uppercase; margin-bottom:12px; }
-.cs-title { font-size:clamp(1.375rem,2.5vw,1.875rem); font-weight:700; color:var(--navy); margin-bottom:20px; line-height:1.2; }
-.cs-body p { font-size:1rem; color:var(--slate); line-height:1.75; margin-bottom:16px; }
-.cs-body p:last-child { margin-bottom:0; }
-.cs-body h3 { font-size:1.0625rem; font-weight:700; color:var(--navy); margin:28px 0 10px; }
-.cs-body h4 { font-size:0.9375rem; font-weight:700; color:var(--blue); margin:20px 0 8px; }
-
-/* Feature list */
-.feat-list { list-style:none; display:flex; flex-direction:column; gap:8px; margin:16px 0; }
-.feat-list li { display:flex; align-items:flex-start; gap:10px; font-size:0.9375rem; color:var(--slate); line-height:1.55; padding:10px 14px; background:var(--off-white); border-radius:10px; }
-.feat-list li::before { content:"›"; color:var(--blue); font-weight:700; font-size:1rem; flex-shrink:0; margin-top:1px; }
-
-/* Delivery list */
-.delivery-list { list-style:none; display:grid; grid-template-columns:1fr 1fr; gap:8px; margin:16px 0; }
-@media(max-width:640px){ .delivery-list { grid-template-columns:1fr; } }
-.delivery-list li { display:flex; align-items:center; gap:8px; font-size:0.875rem; font-weight:500; color:var(--slate); padding:10px 14px; background:var(--teal-pale); border-radius:10px; }
-
-/* Info grid */
-.info-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:16px; margin:20px 0; }
-@media(max-width:640px){ .info-grid { grid-template-columns:1fr; } }
-.info-card { background:var(--navy); border-radius:14px; padding:24px; border:1px solid rgba(75,138,244,0.15); }
-.info-card-icon { width:40px; height:40px; border-radius:10px; background:rgba(29,85,212,0.2); display:flex; align-items:center; justify-content:center; color:var(--blue-light); margin-bottom:14px; }
-.info-card h3 { font-size:0.9375rem; font-weight:700; color:#fff; margin-bottom:8px; }
-.info-card p { font-size:0.875rem; color:var(--header-text); line-height:1.6; }
-
-/* Highlight box */
-.highlight-box { background:var(--navy); border-radius:16px; padding:32px; margin:24px 0; border-left:4px solid var(--blue-light); }
-.highlight-box p { color:rgba(255,255,255,0.8); font-size:1rem; line-height:1.7; margin:0; }
-.highlight-box strong { color:#fff; }
-
-/* CTA bottom */
-.page-cta { background:var(--navy); border-radius:20px; padding:52px; text-align:center; margin-bottom:24px; position:relative; overflow:hidden; }
-.page-cta::before { content:""; position:absolute; inset:0; background:radial-gradient(ellipse 60% 80% at 50% 100%,rgba(29,85,212,0.25) 0%,transparent 70%); pointer-events:none; }
-.page-cta h2 { color:#fff; font-size:1.75rem; margin-bottom:12px; position:relative; z-index:1; }
-.page-cta p { color:rgba(255,255,255,0.65); font-size:1rem; max-width:480px; margin:0 auto 28px; position:relative; z-index:1; }
-.page-cta-btns { display:flex; gap:16px; justify-content:center; flex-wrap:wrap; position:relative; z-index:1; }
-
-/* Steps */
-.steps { display:flex; flex-direction:column; gap:0; margin:16px 0; counter-reset:step-counter; }
-.step { display:flex; gap:20px; padding:16px 0; border-bottom:1px solid var(--border); }
-.step:last-child { border-bottom:none; }
-.step-num { width:32px; height:32px; border-radius:50%; background:var(--blue); color:#fff; font-size:0.8rem; font-weight:700; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:2px; }
-.step-content h4 { font-size:0.9375rem; font-weight:700; color:var(--navy); margin-bottom:4px; }
-.step-content p { font-size:0.875rem; color:var(--muted); line-height:1.6; margin:0; }
-
-/* Divider */
-.section-divider { height:1px; background:var(--border); margin:8px 0; }
-
+/* OM OSS */
+.team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:40px;}@media(max-width:768px){.team-grid{grid-template-columns:1fr;}}.value-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-top:32px;}@media(max-width:640px){.value-grid{grid-template-columns:1fr;}}.value-card{background:var(--navy-mid);border:1px solid rgba(75,138,244,0.15);border-radius:16px;padding:28px;}.value-card-icon{width:44px;height:44px;border-radius:11px;background:rgba(29,85,212,0.2);display:flex;align-items:center;justify-content:center;color:var(--blue-light);margin-bottom:16px;}.value-card h3{color:#fff;font-size:1rem;margin-bottom:8px;}.value-card p{color:var(--header-text);font-size:0.875rem;line-height:1.65;}.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin:48px 0;text-align:center;}@media(max-width:640px){.stat-row{grid-template-columns:1fr;}}.stat-num{font-size:2.5rem;font-weight:700;color:var(--blue-light);line-height:1;}.stat-label{font-size:0.875rem;color:var(--header-text);margin-top:6px;}
 </style>
 </head>
 <body>
@@ -703,7 +651,7 @@ footer {
     </a>
     <div class="nav-links">
       <div class="nav-item">
-        <a href="index.html#tjanster">Tjänster <i data-lucide="chevron-down" style="width:14px;height:14px;opacity:0.6;"></i></a>
+        <a href="#tjanster">Tjänster <i data-lucide="chevron-down" style="width:14px;height:14px;opacity:0.6;"></i></a>
         <div class="nav-dropdown">
           <div class="nav-dropdown-inner">
           <a href="kommun.html" class="dropdown-item">
@@ -749,7 +697,7 @@ footer {
         </div>
       </div>
       <a href="teknik.html">Teknik</a>
-      <a href="index.html#leverans">Leverans</a>
+      <a href="#leverans">Leverans</a>
       <a href="om-oss.html">Om oss</a>
       <a href="kontakt.html" class="btn-nav">Kontakta oss</a>
     </div>
@@ -761,9 +709,9 @@ footer {
 
 <!-- MOBILE MENU -->
 <div class="mobile-menu" id="mobileMenu">
-  <a href="index.html#tjanster" onclick="closeMenu()">Tjänster</a>
-  <a href="index.html#kameror" onclick="closeMenu()">Teknik</a>
-  <a href="index.html#leverans" onclick="closeMenu()">Leverans</a>
+  <a href="#tjanster" onclick="closeMenu()">Tjänster</a>
+  <a href="#kameror" onclick="closeMenu()">Teknik</a>
+  <a href="#leverans" onclick="closeMenu()">Leverans</a>
   <a href="om-oss.html" onclick="closeMenu()">Om oss</a>
   <a href="kontakt.html" class="btn-primary" onclick="closeMenu()">Kontakta oss</a>
 </div>
@@ -771,10 +719,10 @@ footer {
 <section class="page-hero">
   <div class="container">
     <div class="page-hero-inner">
-      <div class="page-kicker"><i data-lucide="landmark" style="width:12px;height:12px;"></i> Kommunal verksamhet</div>
-      <h1>Drönartjänster<br><span>för kommunal verksamhet</span></h1>
-      <p>Från VA-inspektion och kartering till termisk analys och mängdkontroll — vi levererar precisiondata och skräddarsydda rapporter som hjälper kommunen fatta rätt beslut.</p>
-      <div class="page-btns">
+      <div class="page-kicker"><i data-lucide="users" style="width:12px;height:12px;"></i> Om oss</div>
+      <h1>Vi är North Drone <span>Analytics</span></h1>
+      <p>Ett dataanalysföretag baserat i Göteborg. Vi samlar in data med drönare men värdet skapar vi i analysen — skräddarsydda rapporter och insikter som driver rätt beslut.</p>
+      <div style="display:flex;gap:16px;flex-wrap:wrap;">
         <a href="kontakt.html" class="btn-primary">Kontakta oss →</a>
         <a href="index.html" class="btn-back">← Startsidan</a>
       </div>
@@ -782,83 +730,98 @@ footer {
   </div>
 </section>
 
-<div class="content-page">
-  <div class="container" style="padding-top:40px;padding-bottom:60px;">
-    
-<div class="content-section">
-  <div class="cs-kicker"><i data-lucide="map" style="width:13px;height:13px;"></i> GIS & Kartering</div>
-  <h2 class="cs-title">Kartering, GIS & digitala kartor</h2>
-  <div class="cs-body"><p>Professionell kartering med modern GIS-teknik möjliggör insamling, analys och visualisering av geografisk data med en precision som öppnar nya möjligheter för planering och förvaltning. Vi stödjer projekt inom kommunal stadsplanering, infrastrukturutveckling, fastighetsinventering och miljöanalys.</p>
-<h3>Datainsamling och bearbetning</h3>
-<p>Vi samlar in data genom flygfotografering och laserskanning från drönare, kompletterat med markbaserad inmätning med GPS och totalstation vid behov. All data kvalitetsgranskas, klassificeras och koordinattransformeras till det referenssystem projektet kräver.</p>
-<h3>Tre detaljnivåer – anpassade efter behov</h3><ul class="feat-list"><li><strong>Grundnivå:</strong> Byggnader, vägar, vattendrag, fastighetsgränser och höjdkurvor med 1 meters ekvidistans — utmärkt underlag för översiktlig planering</li><li><strong>Mellannivå:</strong> Vägdetaljer som beläggning och kantstenar, individuella träd, belysningsstolpar och höjdkurvor med 0,5 meters ekvidistans</li><li><strong>Avancerad nivå:</strong> Centimeterprecisa höjdmodeller, komplett VA-, el- och fiberinfrastruktur, takkonstruktioner med lutning och detaljerad markbeläggning</li></ul><h3>Solenergikartor</h3>
-<p>Vi skapar solenergikartor som visar den faktiska potentialen för solenergiproduktion på byggnaders tak. Utifrån en detaljerad 3D-modell simulerar vi solens bana under hela året och beräknar solstrålningsmängder för varje takyta, med hänsyn till skuggning från omgivande byggnader och träd. Resultatet är en intuitiv karta där varje takyta är färgkodad efter solinstrålning.</p>
-<h3>Tillämpningsområden för kommunen</h3><ul class="feat-list"><li>Underlag till detaljplaner och översiktsplaner</li><li>Exakta tomtgränser och begränsningslinjer</li><li>Elnätsplanering och optimering</li><li>Förvaltning av kommunala fastigheter och mark</li><li>Miljö- och naturresursövervakning</li></ul></div>
-</div>
-<div class="content-section">
-  <div class="cs-kicker"><i data-lucide="layers" style="width:13px;height:13px;"></i> Mängd & Volym</div>
-  <h2 class="cs-title">Mängdberäkning & volymkontroll</h2>
-  <div class="cs-body"><p>Felaktiga volymbedömningar är en av de vanligaste orsakerna till kostnadsöverdrag i bygg- och anläggningsprojekt. Med drönarbaserad mängdberäkning får kommunen exakta volymer för jordmassor, bergmaterial och råvaror — snabbt, kostnadseffektivt och med ett tydligt visuellt underlag.</p>
-<h3>Mer än bara siffror</h3>
-<p>Utöver volymrapporten får ni ett ortofoto som visar platsen i sin helhet, 3D-modeller för visualisering, och möjligheten att jämföra två mätningar och se exakt vad som förändrats. Det ger ett transparent underlag för mängdreglering och fakturahantering, och vid behov kan vi även ta fram en fullständig massbalansberäkning.</p>
-<h3>Miljö och hållbarhet</h3>
-<p>Mängdberäkningsdata används för att beräkna koldioxidavtrycket från materialvolymer och transporter, vilket ger ett konkret underlag för kommunens hållbarhetsmål och miljörapportering.</p>
-<h3>Leveranser</h3><ul class="delivery-list"><li><i data-lucide="check" style="width:14px;height:14px;color:var(--teal)"></i> Volymrapport (PDF/Excel) — m³ per upplag/område</li><li><i data-lucide="check" style="width:14px;height:14px;color:var(--teal)"></i> Volymdifferens "före/efter" mellan två datum</li><li><i data-lucide="check" style="width:14px;height:14px;color:var(--teal)"></i> Ortofoto (GeoTIFF) i önskad upplösning</li><li><i data-lucide="check" style="width:14px;height:14px;color:var(--teal)"></i> DTM/DSM som höjd- och analysunderlag</li><li><i data-lucide="check" style="width:14px;height:14px;color:var(--teal)"></i> Punktmoln (LAS/LAZ) och 3D-modell/mesh</li><li><i data-lucide="check" style="width:14px;height:14px;color:var(--teal)"></i> CAD/GIS: DXF, SHP, GeoPackage</li><li><i data-lucide="check" style="width:14px;height:14px;color:var(--teal)"></i> Koordinatsystem: SWEREF99 TM och RH2000</li><li><i data-lucide="check" style="width:14px;height:14px;color:var(--teal)"></i> Massbalansberäkning vid behov</li></ul></div>
-</div>
-<div class="content-section">
-  <div class="cs-kicker"><i data-lucide="search" style="width:13px;height:13px;"></i> Inspektion</div>
-  <h2 class="cs-title">Inspektion av kommunal infrastruktur</h2>
-  <div class="cs-body"><p>Drönartekniken har förändrat möjligheterna för inspektion av kommunal infrastruktur. Det som tidigare krävde ställningar, liftar och dagar av manuellt arbete kan idag utföras på timmar, med högre precision och utan att utsätta personal för risker.</p>
-<h3>Tekniken som ser mer</h3>
-<p>Med högteknologisk utrustning identifierar vi brister och skador som är omöjliga att se med blotta ögat. Erfarna ingenjörer analyserar materialet för att snabbt identifiera avvikelser. Att åtgärda problem tidigt är alltid billigare än att vänta.</p><div class="info-grid"><div class="info-card">
-      <div class="info-card-icon"><i data-lucide="droplets" style="width:20px;height:20px;"></i></div>
-      <h3>VA-anläggningar</h3>
-      <p>Pumpstationer, ledningsnät, dammar och reservoarer inspekteras snabbt och säkert.</p>
-    </div><div class="info-card">
-      <div class="info-card-icon"><i data-lucide="zap" style="width:20px;height:20px;"></i></div>
-      <h3>Infrastruktur</h3>
-      <p>Broar, vägar, belysningsstolpar och järnväg — svårtillgängliga ytor utan risktagning.</p>
-    </div><div class="info-card">
-      <div class="info-card-icon"><i data-lucide="wind" style="width:20px;height:20px;"></i></div>
-      <h3>Vindkraftverk</h3>
-      <p>Systematisk inspektion av blad och tornkonstruktioner med termisk och visuell kamera.</p>
-    </div><div class="info-card">
-      <div class="info-card-icon"><i data-lucide="tree-pine" style="width:20px;height:20px;"></i></div>
-      <h3>Skogsinventering</h3>
-      <p>Kartläggning av kommunal skog, trädhälsa och NDVI-analys för grönområden.</p>
-    </div></div><h3>Arbetsområden</h3><ul class="feat-list"><li>VA-anläggningar, pumpstationer och ledningsnät</li><li>Broar, vägar och annan kommunal infrastruktur</li><li>Vindkraftverk och energiinfrastruktur</li><li>Järnväg och spårinfrastruktur</li><li>Kommunal skog och grönområden</li><li>Termografiska inspektioner för energiförluster i kommunala byggnader</li></ul></div>
-</div>
-<div class="content-section">
-  <div class="cs-kicker"><i data-lucide="thermometer" style="width:13px;height:13px;"></i> Termisk inspektion</div>
-  <h2 class="cs-title">Termisk inspektion av kommunala byggnader & anläggningar</h2>
-  <div class="cs-body"><p>Drönarbaserad termisk inspektion med infraröd termografi avslöjar temperaturavvikelser som inte är synliga för ögat — energiförluster, isoleringsbrister, fuktinträngning och elektriska fel — utan att störa den pågående verksamheten.</p>
-<h3>Solceller</h3>
-<p>Termisk drönarinspektion är standard vid underhåll av kommunala solcellsanläggningar. Defekta celler och moduler genererar mer värme än fungerande enheter och syns omedelbart i värmekamerabilden. Drönaren flyger systematiskt och skapar en komplett värmekarta med exakta positioner för hotspots och överhettade komponenter.</p>
-<h3>Kommunala byggnader — tak och fasad</h3>
-<p>Bristfällig isolering och fuktinträngning kostar kommunen stora summor i onödig energiförbrukning. Med termisk drönarinspektion identifierar vi exakt var problemet finns — vid fönster, dörrar, fogar, platta tak eller i väggar. Inspektionen genomförs optimalt under kalla månader.</p>
-<h3>Elsystem</h3>
-<p>Elektriska fel är en av de vanligaste orsakerna till bränder och driftstopp. Med termisk inspektion identifierar vi överhettade kretsar, lösa anslutningar och felaktiga komponenter utan att stänga ner systemen.</p>
-<h3>Rör och VA-ledningar</h3>
-<p>Läckor i fjärrvärmenät och VA-ledningar syns som temperaturavvikelser längs ledningssträckan, vilket gör det möjligt att peka ut exakt var ett läckage finns — utan kostsamma grävarbeten.</p>
-<h3>Vad vi levererar</h3><ul class="delivery-list"><li><i data-lucide="check" style="width:14px;height:14px;color:var(--teal)"></i> Detaljerad inspektionsrapport med analys av avvikelser</li><li><i data-lucide="check" style="width:14px;height:14px;color:var(--teal)"></i> Högupplösta IR-bilder med kommentarer</li><li><i data-lucide="check" style="width:14px;height:14px;color:var(--teal)"></i> Matchande RGB-bilder för visuell jämförelse</li><li><i data-lucide="check" style="width:14px;height:14px;color:var(--teal)"></i> Termiska kartor över värmefördelningen</li><li><i data-lucide="check" style="width:14px;height:14px;color:var(--teal)"></i> Konkreta åtgärdsrekommendationer</li><li><i data-lucide="check" style="width:14px;height:14px;color:var(--teal)"></i> Rådata för egna analyser</li><li><i data-lucide="check" style="width:14px;height:14px;color:var(--teal)"></i> Uppföljande konsultation</li></ul></div>
-</div>
-<div class="content-section">
-  <div class="cs-kicker"><i data-lucide="git-branch" style="width:13px;height:13px;"></i> Arbetsprocess</div>
-  <h2 class="cs-title">Så arbetar vi — inspektionsflöde och förberedelser</h2>
-  <div class="cs-body"><p>Varje uppdrag börjar med en konsultation där vi identifierar era mål och utformar den bästa möjliga inspektionsplanen. Vi säkerställer att insamlad data ger konkreta och användbara underlag för kommunens beslut.</p>
-
-<h3>Förberedelser och planering</h3>
-<p>Innan varje flygning genomförs en grundlig platsanalys för att förstå området och identifiera kritiska punkter. Vi planerar flygrutten utifrån alla relevanta ytor och inspektionsmål, kontrollerar väderprognoser för att säkerställa optimala flygförhållanden och förbereder all utrustning inklusive kameror, sensorer och säkerhetssystem. Vi samordnar med personal på plats och säkerställer att alla säkerhetsprotokoll följs.</p>
-<ul class="feat-list"><li>Platsanalys och datagranskning för att förstå området och identifiera kritiska punkter</li><li>Planering av flygrutt baserat på alla relevanta ytor och inspektionsmål</li><li>Väderkontroll för att säkerställa optimala flygförhållanden</li><li>Utrustningsförberedelser inklusive kameror, sensorer och säkerhetssystem</li><li>Samordning med personal på plats och säkerställande av att alla säkerhetsprotokoll följs</li></ul></div>
-</div>
-<div class="page-cta">
-  <h2>Redo att samarbeta?</h2>
-  <p>Vi berättar gärna mer om hur North Drone Analytics kan hjälpa er kommun. Boka ett kostnadsfritt inledande möte.</p>
-  <div class="page-cta-btns">
-    <a href="kontakt.html" class="btn-primary">Kontakta oss →</a>
-    <a href="index.html" class="btn-back">← Startsidan</a>
+<div style="background:var(--navy);padding:60px 0;">
+  <div class="container">
+    <div class="stat-row">
+      <div>
+        <div class="stat-num">100+</div>
+        <div class="stat-label">Genomförda uppdrag</div>
+      </div>
+      <div>
+        <div class="stat-num">6</div>
+        <div class="stat-label">Drönare i flottan</div>
+      </div>
+      <div>
+        <div class="stat-num">SORA</div>
+        <div class="stat-label">Tillstånd för stadsflyg</div>
+      </div>
+    </div>
   </div>
 </div>
+
+<div style="background:var(--page-bg);padding:60px 0;">
+  <div class="container">
+
+    <div style="background:var(--white);border-radius:20px;padding:52px;margin-bottom:24px;">
+      <span style="font-size:0.75rem;font-weight:700;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;">Vår historia</span>
+      <h2 style="color:var(--navy);font-size:1.75rem;margin:12px 0 20px;">Drönare är verktyget. Analysen är produkten.</h2>
+      <p style="color:var(--slate);font-size:1rem;line-height:1.75;margin-bottom:16px;">North Drone Analytics grundades med en tydlig övertygelse: att det verkliga värdet i drönardata inte ligger i själva flygningen — det ligger i vad man gör med datan efteråt. Vi kombinerar avancerad drönarinsamling med AI-analys, GIS-kompetens och skräddarsydd mjukvaruutveckling för att leverera insikter som faktiskt gör skillnad.</p>
+      <p style="color:var(--slate);font-size:1rem;line-height:1.75;">Vi är baserade i Göteborg men verksamma i hela Sverige. Våra kunder finns inom kommunal verksamhet, fastighetsförvaltning, bygg och anläggning, och de väljer oss för att vi förstår deras verksamhet lika väl som vi förstår tekniken.</p>
+    </div>
+
+    <div style="background:var(--navy);border-radius:20px;padding:52px;margin-bottom:24px;">
+      <span style="font-size:0.75rem;font-weight:700;color:var(--header-text);letter-spacing:0.1em;text-transform:uppercase;">Våra värderingar</span>
+      <h2 style="color:#fff;font-size:1.75rem;margin:12px 0 8px;">Vad vi står för</h2>
+      <div class="value-grid">
+        <div class="value-card">
+          <div class="value-card-icon"><i data-lucide="target" style="width:20px;height:20px;"></i></div>
+          <h3>Precision</h3>
+          <p>Vi levererar alltid data med korrekt metadata i SWEREF99 TM och RH2000. Varje leverans är ansvarsförsäkrad och kvalitetsgranskas innan den når kunden.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-card-icon"><i data-lucide="lightbulb" style="width:20px;height:20px;"></i></div>
+          <h3>Insikt över data</h3>
+          <p>Rådata skapar inte värde i sig. Vi omvandlar insamlad data till handlingsbara insikter — rapporter och analyser som driver rätt beslut.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-card-icon"><i data-lucide="shield" style="width:20px;height:20px;"></i></div>
+          <h3>Säkerhet först</h3>
+          <p>Vi innehar SORA-tillstånd för flygning i specifik kategori — ett av få bolag i Sverige. Egna riskbedömningar genomförs för varje uppdrag.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-card-icon"><i data-lucide="sliders" style="width:20px;height:20px;"></i></div>
+          <h3>Skräddarsytt</h3>
+          <p>Ingen kund är den andra lik. Vi anpassar insamlingsmetod, analysmodell och presentationsformat efter vad just er verksamhet behöver.</p>
+        </div>
+      </div>
+    </div>
+
+    <div style="background:var(--white);border-radius:20px;padding:52px;margin-bottom:24px;">
+      <span style="font-size:0.75rem;font-weight:700;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;">Teknik & certifieringar</span>
+      <h2 style="color:var(--navy);font-size:1.75rem;margin:12px 0 20px;">Utrustning & tillstånd</h2>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+        <div style="background:var(--off-white);border-radius:12px;padding:20px;">
+          <div style="font-size:0.875rem;font-weight:700;color:var(--navy);margin-bottom:10px;">Drönare i flottan</div>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:6px;">
+            <li style="font-size:0.875rem;color:var(--slate);">› DJI Mavic 3E — Kartläggning</li>
+            <li style="font-size:0.875rem;color:var(--slate);">› DJI Mavic 3M — Multispektral</li>
+            <li style="font-size:0.875rem;color:var(--slate);">› DJI Matrice 4E — Precision RTK</li>
+            <li style="font-size:0.875rem;color:var(--slate);">› DJI Matrice 4T — Thermal</li>
+            <li style="font-size:0.875rem;color:var(--slate);">› DJI Matrice 30T — Allväder</li>
+            <li style="font-size:0.875rem;color:var(--slate);">› Zenmuse L2 — LiDAR</li>
+            <li style="font-size:0.875rem;color:var(--slate);">› Zenmuse H30T — Multi-sensor</li>
+          </ul>
+        </div>
+        <div style="background:var(--off-white);border-radius:12px;padding:20px;">
+          <div style="font-size:0.875rem;font-weight:700;color:var(--navy);margin-bottom:10px;">Tillstånd & försäkringar</div>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:6px;">
+            <li style="font-size:0.875rem;color:var(--slate);">› SORA-tillstånd (specifik kategori)</li>
+            <li style="font-size:0.875rem;color:var(--slate);">› Leveranser i SWEREF99 TM & RH2000</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div style="background:var(--navy);border-radius:20px;padding:52px;text-align:center;position:relative;overflow:hidden;">
+      <div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 50% 100%,rgba(29,85,212,0.25) 0%,transparent 70%);pointer-events:none;"></div>
+      <h2 style="color:#fff;font-size:1.75rem;margin-bottom:12px;position:relative;z-index:1;">Redo att samarbeta?</h2>
+      <p style="color:rgba(255,255,255,0.65);max-width:480px;margin:0 auto 28px;position:relative;z-index:1;">Vi berättar gärna mer om hur vi kan hjälpa just er verksamhet. Hör av er så sätter vi upp ett kort möte.</p>
+      <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;position:relative;z-index:1;">
+        <a href="kontakt.html" class="btn-primary">Kontakta oss →</a>
+        <a href="index.html" class="btn-back">← Startsidan</a>
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -884,26 +847,26 @@ footer {
       <div class="footer-col">
         <h4>Kommunal</h4>
         <ul>
-          <li><a href="index.html#tjanster">Vatten & Avlopp</a></li>
-          <li><a href="index.html#tjanster">Mätning & GIS</a></li>
-          <li><a href="index.html#tjanster">Fastighet & Förvaltning</a></li>
+          <li><a href="#tjanster">Vatten & Avlopp</a></li>
+          <li><a href="#tjanster">Mätning & GIS</a></li>
+          <li><a href="#tjanster">Fastighet & Förvaltning</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h4>Fastigheter</h4>
         <ul>
-          <li><a href="index.html#tjanster">Tak & Fasad</a></li>
-          <li><a href="index.html#tjanster">Solceller & Energi</a></li>
-          <li><a href="index.html#tjanster">Underhållsplan</a></li>
+          <li><a href="#tjanster">Tak & Fasad</a></li>
+          <li><a href="#tjanster">Solceller & Energi</a></li>
+          <li><a href="#tjanster">Underhållsplan</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h4>Teknik</h4>
         <ul>
-          <li><a href="index.html#kameror">Värmekamera</a></li>
-          <li><a href="index.html#kameror">Multispektral</a></li>
-          <li><a href="index.html#kameror">RGB-kamera</a></li>
-          <li><a href="index.html#leverans">Leveransformat</a></li>
+          <li><a href="#kameror">Värmekamera</a></li>
+          <li><a href="#kameror">Multispektral</a></li>
+          <li><a href="#kameror">RGB-kamera</a></li>
+          <li><a href="#leverans">Leveransformat</a></li>
         </ul>
       </div>
     </div>
